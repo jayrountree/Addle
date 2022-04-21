@@ -7,8 +7,8 @@
 class game {
     std::vector<std::string> keyList;
     int turn;
-    string currentWord;
-    string guess; 
+    std::string currentWord;
+    std::string guess; 
 
     public:
     
