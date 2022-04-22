@@ -3,7 +3,7 @@
 using namespace std;
 
 // constructor for playGame class, sets keyList vector
-void playGame::playGame(string wordsList) {
+playGame::playGame(string wordsList) {
 
 }
 
@@ -21,13 +21,13 @@ void playGame::updateTurn() {
 void playGame::checkColor()
 
 
-// excecutes a turn of Addle, updates turn and key 
-void playGame::turn(string words) {
+// excecutes a turn of Addle, sets guess/updates turn and key 
+void playGame::playTurn(string g) {
     
 }
 
 // display
-void playGame::display(string words) {
+void playGame::display() {
     
 }
 

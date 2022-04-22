@@ -1,10 +1,10 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef PLAYGAME_H
+#define PLAYGAME_H
 
 #include <vector>
 #include <string>
 
-class game {
+class playGame {
     std::vector<std::string> keyList;
     std::vector<char> color;
     std::string key;
@@ -12,14 +12,15 @@ class game {
     int turn;
 
     public:
-        void playGame(std::string wordList);
+        playGame(std::string wordList);
         void updateKey();
         void updateTurn();
-        void turn(std::string guess);
+        void checkColor();
+        void playTurn(std::string g);
         void display();
 
 };
 
 
 
-#endif // GAME_H
+#endif // PLAYGAME_H
