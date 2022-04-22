@@ -6,12 +6,17 @@
 
 class game {
     std::vector<std::string> keyList;
+    std::vector<char> color;
+    std::string key;
+    std::string guess;
     int turn;
-    std::string currentWord;
-    std::string guess; 
 
     public:
-    
+        void playGame(std::string wordList);
+        void updateKey();
+        void updateTurn();
+        void turn(std::string guess);
+        void display();
 
 };
 
