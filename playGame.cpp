@@ -2,10 +2,8 @@
 
 using namespace std;
 
-// constructor for playGame class, sets keyList and color vectors
+// constructor for playGame class: sets keyList, color, turn, and key
 playGame::playGame(const string& inputFile) {
-    // initialize turn
-    turn = 0;
     // randomly select line from file
     random_device rd;
     mt19937 mt(rd());
@@ -15,7 +13,7 @@ playGame::playGame(const string& inputFile) {
     ifstream wordsList;
     wordsList.open("wordsList.txt");
     if (wordsList.is_open()) {
-        for(int i = 0; i < listLoc; i++) {
+        for (int i = 0; i < listLoc; i++) {
             getline(wordsList,line);
         }
     }
@@ -24,39 +22,78 @@ playGame::playGame(const string& inputFile) {
     while (getline(ss, word, ' ')){
         keyList.push_back(word);
     }
-    color.push_back('g');
-    color.push_back('g');
-    color.push_back('g');
+    // initialize color, turn, and key
+    color.push_back('x');
+    color.push_back('x');
+    color.push_back('x');
+    turn = 0;
+    key = keyList.at(0);
 }
 
-// updates key by indexing keyList by turn
-void playGame::updateKey() {
-    
-}
-
-// updates turn
+// updates turn and key by indexing keyList by turn
 void playGame::updateTurn() {
     turn++;
+    if (turn < 4)
+        key = keyList.at(turn);
 }
 
 // compares key and guess, sets color vector
-void playGame::checkColor() {
-
+void playGame::updateColor() {
+    color.clear();
+    string lettersLeft = guess;
+    char currentLetter;
+    int keyInd = 0;
+    bool flag;
+    vector<int> removed;
+    while (lettersLeft.length() > 0) {
+        flag = false;
+        currentLetter = lettersLeft[0];
+        if (currentLetter == key[keyInd]) { // checks same place same spot
+            color.push_back('g');
+        }
+        else {
+            for(int i = keyInd; i < key.length(); i++) {
+                if (currentLetter == key[i] && find(removed.begin(), removed.end(), i) != removed.end()) {
+                    color.push_back('y');
+                    removed.push_back(i);
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                color.push_back('x');
+            }
+        }
+        keyInd++;
+        lettersLeft = lettersLeft.substr(1,lettersLeft.length()-1);
+    }
 }
 
+// takes in a new guess
+void playGame::updateGuess() {
+    cin >> guess;
+}
 
-// executes a turn of Addle, sets guess/updates turn and key
-void playGame::playTurn(const string& g) {
-    
+// executes a turn of Addle, updates guess
+void playGame::playTurn() {
+    display();
+    updateGuess();
+    cout << key << '\n';
+    updateColor();
+    updateTurn();
+}
+
+// checks for a win
+bool playGame::hasWon() const {
+    return all_of(color.begin(), color.end(), [](char letter){ return letter == 'g'; }); // checks if all characters in color are 'g'
 }
 
 // display number of characters and color
-void playGame::display() const {
+void playGame::display() {
     cout << "_ _ _";
     for(int i = 0; i < turn; i++){
-        if(i<4){
+        if (i < 4)
             cout << " _";
-        }
     }
     cout << '\n';
     for(char x : color) {

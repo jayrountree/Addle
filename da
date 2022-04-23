@@ -1,0 +1,59 @@
+[33mcommit c3eef593dfb781e89013858f34d3aab80ea0cf9b[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: jayrountree <jaynr22@gmail.com>
+Date:   Sat Apr 23 15:33:22 2022 -0500
+
+    fixed declarations
+
+[33mcommit 94bf5497c2fc7f6c1886333876449793f86de73f[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: jayrountree <jaynr22@gmail.com>
+Date:   Sat Apr 23 15:23:35 2022 -0500
+
+    added constructor and display functionality
+
+[33mcommit c7cb56383e20cadd833f4b24482b031c83014110[m
+Author: owenmbrown <owenbrown926@gmail.com>
+Date:   Fri Apr 22 14:19:16 2022 -0500
+
+    fixed jays idiocy
+
+[33mcommit 9e7521dae905250c191d09ed673e88b23de1131c[m
+Author: owenmbrown <owenbrown926@gmail.com>
+Date:   Fri Apr 22 14:04:30 2022 -0500
+
+    added wordsList
+
+[33mcommit 576997618bb270dfe90e188af2345456d2923f46[m
+Author: jayrountree <jaynr22@gmail.com>
+Date:   Fri Apr 22 13:56:37 2022 -0500
+
+    added method skeleton and comments
+
+[33mcommit 517e0c03813df37cdbae9a76851d0becdc81f3e5[m
+Author: jayrountree <jaynr22@gmail.com>
+Date:   Thu Apr 21 14:08:37 2022 -0500
+
+    first game edit
+
+[33mcommit d8948e36f9a20f0cb5a6dca07db1a4cf795d6f9c[m
+Author: jayrountree <jaynr22@gmail.com>
+Date:   Thu Apr 21 13:36:30 2022 -0500
+
+    basic game outline
+
+[33mcommit 96b47ce06b2c5721b17a374cdf629e88345e6657[m
+Author: Jay <jaynr22@gmail.com>
+Date:   Wed Apr 20 21:41:41 2022 -0500
+
+    fixed readme
+
+[33mcommit 95e7a79645bb6fe42a571757e059394885acaf7a[m
+Author: jayrountree <jaynr22@gmail.com>
+Date:   Wed Apr 20 21:39:38 2022 -0500
+
+    added
+
+[33mcommit 200e5a52136bee5ea8c70acc0fd30c468b548920[m
+Author: jayrountree <jaynr22@gmail.com>
+Date:   Wed Apr 20 17:43:49 2022 -0500
+
+    readme added

@@ -1,6 +1,4 @@
 #include <string>
-#include <iostream>
-#include <iomanip>
 #include "playGame.h"
 
 using namespace std;
@@ -8,8 +6,8 @@ using namespace std;
 int main () {
     playGame game = playGame("wordsList.txt");
     string guess;
-    cout << "Game start" << '\n';
-    game.display();
-    cout << "Enter first guess:";
-    cin >> guess;
+    while(!game.hasWon()) {
+        game.playTurn();
+    }
+    cout << "Congrats! You have beaten Addle.";
 }

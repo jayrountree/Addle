@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <random>
 #include <sstream>
@@ -17,13 +18,13 @@ class playGame {
     int turn;
 
     public:
-        playGame(const std::string& inputFile);
-        void updateKey();
+        explicit playGame(const std::string& inputFile);
         void updateTurn();
         void updateColor();
-        void playTurn(const std::string& g);
-        void display() const;
-
+        void updateGuess();
+        void playTurn();
+        bool hasWon() const;
+        void display();
 };
 
 
