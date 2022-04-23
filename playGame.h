@@ -3,6 +3,11 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <random>
+#include <sstream>
+#include <algorithm>
 
 class playGame {
     std::vector<std::string> keyList;
@@ -12,12 +17,12 @@ class playGame {
     int turn;
 
     public:
-        playGame(std::string wordList);
+        playGame(const std::string& inputFile);
         void updateKey();
         void updateTurn();
         void checkColor();
-        void playTurn(std::string g);
-        void display();
+        void playTurn(const std::string& g);
+        void display() const;
 
 };
 
