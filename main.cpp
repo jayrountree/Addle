@@ -9,5 +9,5 @@ int main () {
     while(!game.hasWon()) {
         game.playTurn();
     }
-    cout << "Congrats! You have beaten Addle.";
+    cout << "Congrats! You have beaten Addle!";
 }

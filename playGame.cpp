@@ -76,10 +76,10 @@ void playGame::updateGuess() {
 
 // executes a turn of Addle, updates guess
 void playGame::playTurn() {
-    display();
+    displayBlanks();
     updateGuess();
-    cout << key << '\n';
     updateColor();
+    displayColors();
     updateTurn();
 }
 
@@ -88,17 +88,19 @@ bool playGame::hasWon() const {
     return all_of(color.begin(), color.end(), [](char letter){ return letter == 'g'; }); // checks if all characters in color are 'g'
 }
 
-// display number of characters and color
-void playGame::display() {
+// display number of characters to guess
+void playGame::displayBlanks() const{
     cout << "_ _ _";
     for(int i = 0; i < turn; i++){
         if (i < 4)
             cout << " _";
     }
     cout << '\n';
+}
+
+void playGame::displayColors() const{
     for(char x : color) {
         cout << x << " ";
     }
     cout << '\n';
 }
-

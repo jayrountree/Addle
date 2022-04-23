@@ -24,7 +24,8 @@ class playGame {
         void updateGuess();
         void playTurn();
         bool hasWon() const;
-        void display();
+        void displayBlanks() const;
+        void displayColors() const;
 };
 
 
