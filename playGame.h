@@ -20,7 +20,7 @@ class playGame {
         playGame(const std::string& inputFile);
         void updateKey();
         void updateTurn();
-        void checkColor();
+        void updateColor();
         void playTurn(const std::string& g);
         void display() const;
 
