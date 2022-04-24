@@ -68,13 +68,12 @@ void playGame::updateColor() {
             colorArray[i] = 'g';
         }
     }
-    for (int c: removed) {} // for some reason this is required to place x
+    for (char c: colorArray) {} // for some reason this is required to place x
     for (int i = 0; i < guess.length(); i++) {
         if (colorArray[i] == 0) { // checks incorrect guess
             colorArray[i] = 'x';
         }
     }
-
     for (char c: colorArray) {
         cout << c;
         color.push_back(c);
