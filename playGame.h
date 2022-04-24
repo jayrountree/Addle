@@ -15,6 +15,7 @@ class playGame {
     std::vector<char> color;
     std::string key;
     std::string guess;
+    int newLetter;
     int turn;
 
     public:
