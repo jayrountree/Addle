@@ -28,6 +28,4 @@ class playGame {
         void displayColors() const;
 };
 
-
-
 #endif // PLAYGAME_H
