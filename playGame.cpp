@@ -33,40 +33,53 @@ playGame::playGame(const string& inputFile) {
 // updates turn and key by indexing keyList by turn
 void playGame::updateTurn() {
     turn++;
-    if (turn < 4)
+    if (turn < 5)
         key = keyList.at(turn);
 }
 
 // compares key and guess, sets color vector
 void playGame::updateColor() {
     color.clear();
-    string lettersLeft = guess;
-    char currentLetter;
-    int keyInd = 0;
+    char colorArray[key.length()];
     bool flag;
     vector<int> removed;
-    while (lettersLeft.length() > 0) {
-        flag = false;
-        currentLetter = lettersLeft[0];
-        if (currentLetter == key[keyInd]) { // checks same place same spot
-            color.push_back('g');
+    for (int i = 0; i < guess.length(); i++) {
+        if (key[i] == guess[i]) { // checks correct guess same spot
+            colorArray[i] = 'g';
+            removed.push_back(i);
         }
-        else {
-            for(int i = keyInd; i < key.length(); i++) {
-                if (currentLetter == key[i] && find(removed.begin(), removed.end(), i) != removed.end()) {
-                    color.push_back('y');
-                    removed.push_back(i);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                color.push_back('x');
-            }
-        }
-        keyInd++;
-        lettersLeft = lettersLeft.substr(1,lettersLeft.length()-1);
     }
+    for (int i = 0; i < guess.length(); i++) {
+        flag = false;
+        for (int x = 0; x < key.length(); x++) {
+            if (guess[i] == key[x] && find(removed.begin(), removed.end(), x) == removed.end()) { // checks correct guess incorrect spot
+                colorArray[i] = 'y';
+                removed.push_back(x);
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            colorArray[i] == 'x';
+        }
+    }
+    for (int i = 0; i < guess.length(); i++) {
+        if (key[i] == guess[i]) { // checks correct guess same spot again
+            colorArray[i] = 'g';
+        }
+    }
+    for (int c: removed) {} // for some reason this is required to place x
+    for (int i = 0; i < guess.length(); i++) {
+        if (colorArray[i] == 0) { // checks incorrect guess
+            colorArray[i] = 'x';
+        }
+    }
+
+    for (char c: colorArray) {
+        cout << c;
+        color.push_back(c);
+    }
+    cout << '\n';
 }
 
 // takes in a new guess
@@ -77,6 +90,7 @@ void playGame::updateGuess() {
 // executes a turn of Addle, updates guess
 void playGame::playTurn() {
     displayBlanks();
+    cout << key << '\n';
     updateGuess();
     updateColor();
     displayColors();
