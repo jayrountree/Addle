@@ -24,9 +24,11 @@ class playGame {
         void updateColor();
         void updateGuess();
         void playTurn();
+        int getTurn() const;
         bool hasWon() const;
         void displayBlanks() const;
         void displayColors() const;
+        void displayWords() const;
 };
 
 #endif // PLAYGAME_H

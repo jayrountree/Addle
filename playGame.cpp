@@ -74,7 +74,7 @@ void playGame::updateColor() {
             }
         }
         if (!flag) {
-            colorArray[i] == 'x';
+            colorArray[i] = 'x';
         }
     }
     for (int i = 0; i < guess.length(); i++) {
@@ -87,7 +87,7 @@ void playGame::updateColor() {
             colorArray[i] = 'x';
         }
     }
-    for (char c: colorArray) {} // indexes each color to avoid ascii outputs
+    for (char c: colorArray) {} // indexes each color to avoid weird ascii outputs
     for (char c: colorArray) { // fills color vector
         color.push_back(c);
     }
@@ -106,6 +106,11 @@ void playGame::playTurn() {
     updateColor();
     displayColors();
     updateTurn();
+}
+
+// gets turn number
+int playGame::getTurn() const {
+    return turn;
 }
 
 // checks for a win
@@ -137,5 +142,12 @@ void playGame::displayColors() const {
             cout << x << " ";
         }
         cout << '\n';
+    }
+}
+
+// displays every key
+void playGame::displayWords() const {
+    for (const string& word: keyList) {
+        cout << word << '\n';
     }
 }
