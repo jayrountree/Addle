@@ -16,16 +16,18 @@ class playGame {
     std::string guess;
     std::string key;
     int newLetter;
+    int gameMode;
     int turn;
 
     public:
-        explicit playGame(const std::string& inputFile);
+        playGame(const std::string& inputFile, const int& gm);
         bool isValid() const;
+        bool addTurn() const;
+        bool hasWon() const;
         void updateTurn();
         void updateColor();
         void updateGuess();
         int getTurn() const;
-        bool hasWon() const;
         void displayBlanks() const;
         void displayColors() const;
         void displayWords() const;

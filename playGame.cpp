@@ -2,8 +2,8 @@
 
 using namespace std;
 
-// constructor for playGame class: sets keyList, color, turn, newLetter, and key
-playGame::playGame(const string& inputFile) {
+// constructor for playGame class: sets keyList, color, turn, newLetter, key, and gameMode
+playGame::playGame(const string& inputFile, const int& gm) {
     // randomly select line from file
     random_device rd;
     mt19937 mt(rd());
@@ -23,13 +23,14 @@ playGame::playGame(const string& inputFile) {
     while (getline(ss, word, ' ')){
         keyList.push_back(word);
     }
-    // initialize color, turn, newLetter, and key
+    // initialize color, turn, newLetter, key, and gameMode
     color.push_back('x');
     color.push_back('x');
     color.push_back('x');
     turn = 0;
     newLetter = -1;
     key = keyList.at(0);
+    gameMode = gm;
 }
 
 // checks for guess validity
@@ -51,12 +52,41 @@ bool playGame::isValid() const{
     return false;
 }
 
+// checks if on an add turn dependent on game mode
+bool playGame::addTurn() const {
+    if (turn > 0) {
+        if (gameMode == 1) {
+            if (turn < 5)
+                return true;
+        }
+        if (gameMode == 2) {
+            if (turn < 10 && turn % 2 == 0)
+                return true;
+        }
+        if (gameMode == 3) {
+            if (turn < 15 && turn % 3 == 0)
+                return true;
+        }
+    }
+    return false;
+}
+
+// checks for a win
+bool playGame::hasWon() const {
+    return all_of(color.begin(), color.end(), [](char letter){ return letter == 'g'; }); // checks if all characters in color are 'g'
+}
+
 // updates turn, newLetter, and key by indexing keyList by turn
 void playGame::updateTurn() {
     turn++;
-    if (turn < 5) {
-        key = keyList.at(turn);
-        string oldKey = keyList.at(turn-1);
+    string oldKey = key;
+    if (addTurn()) {
+        if (gameMode == 1)
+            key = keyList.at(turn);
+        else if (gameMode == 2)
+            key = keyList.at(turn/2);
+        else
+            key = keyList.at(turn/3);
         bool flag = true;
         for (int i = 0; i < oldKey.length(); i++) { // finds the index of the new letter
             if (oldKey[i] != key[i]) {
@@ -66,7 +96,12 @@ void playGame::updateTurn() {
             }
         }
         if (flag) { // sets newLetter to the last letter
-            newLetter = turn + 2;
+            if (gameMode == 1)
+                newLetter = turn + 2;
+            else if (gameMode == 2)
+                newLetter = turn + 1;
+            else
+                newLetter = turn;
         }
     }
 }
@@ -116,9 +151,9 @@ void playGame::updateColor() {
 // takes in a new guess
 void playGame::updateGuess() {
     cin >> guess;
-    if (guess == "igiveup")
-        cout << "The correct word is: " << key << '\n';
     while(!isValid()) {
+        if (guess == "igiveup")
+            cout << "The correct word is: " << key << '\n';
         cout << "Please enter a valid word\n";
         cin >> guess;
     }
@@ -129,18 +164,13 @@ int playGame::getTurn() const {
     return turn;
 }
 
-// checks for a win
-bool playGame::hasWon() const {
-    return all_of(color.begin(), color.end(), [](char letter){ return letter == 'g'; }); // checks if all characters in color are 'g'
-}
-
 // displays the number of characters to guess and where new letter was inserted
 void playGame::displayBlanks() const {
     for (int i = 0; i < key.length(); i++){ // displays blanks
         cout << "_ ";
     }
     cout << '\n';
-    if(turn > 0 && turn < 5) { // displays new letter insertion
+    if (addTurn()) { // displays new letter insertion
         for (int i = 0; i < key.length()+1; i++) {
             if (i == newLetter)
                 cout << "^ ";
