@@ -12,7 +12,12 @@ int main () {
     while(!game.hasWon()) {
         game.playTurn();
     }
-    cout << "Congrats! You have beaten Addle in " << game.getTurn() << " tries.\n";
+    cout << "Congrats! You have beaten Addle in " << game.getTurn() << " tr";
+    if (game.getTurn() == 1)
+        cout << "y";
+    else
+        cout << "ies";
+    cout << ".\n";
     cout << "Here is every word in this Addle:\n";
     game.displayWords();
 }
