@@ -20,6 +20,7 @@ class playGame {
 
     public:
         explicit playGame(const std::string& inputFile);
+        bool isValid() const;
         void updateTurn();
         void updateColor();
         void updateGuess();

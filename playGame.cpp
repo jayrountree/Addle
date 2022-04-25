@@ -17,6 +17,7 @@ playGame::playGame(const string& inputFile) {
             getline(keys,line);
         }
     }
+    keys.close();
     // parse line into keyList
     std::stringstream ss(line);
     while (getline(ss, word, ' ')){
@@ -29,6 +30,23 @@ playGame::playGame(const string& inputFile) {
     turn = 0;
     newLetter = -1;
     key = keyList.at(0);
+}
+
+// checks for guess validity
+bool playGame::isValid() const{
+    ifstream validWords;
+    string word;
+    validWords.open("words.txt");
+    if (validWords.is_open()) {
+        while (getline(validWords,word)) {
+            if (guess == word) {
+                validWords.close();
+                return true;
+            }
+        }
+    }
+    validWords.close();
+    return false;
 }
 
 // updates turn, newLetter, and key by indexing keyList by turn
@@ -96,12 +114,15 @@ void playGame::updateColor() {
 // takes in a new guess
 void playGame::updateGuess() {
     cin >> guess;
+    while(!isValid()) {
+        cout << "Please enter a valid word\n";
+        cin >> guess;
+    }
 }
 
 // executes a turn of Addle, updates guess
 void playGame::playTurn() {
     displayBlanks();
-    cout << key << '\n';
     updateGuess();
     updateColor();
     displayColors();
