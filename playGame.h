@@ -24,12 +24,12 @@ class playGame {
         void updateTurn();
         void updateColor();
         void updateGuess();
-        void playTurn();
         int getTurn() const;
         bool hasWon() const;
         void displayBlanks() const;
         void displayColors() const;
         void displayWords() const;
+        void playTurn();
 };
 
 #endif // PLAYGAME_H

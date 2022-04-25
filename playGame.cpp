@@ -36,7 +36,7 @@ playGame::playGame(const string& inputFile) {
 bool playGame::isValid() const{
     ifstream validWords;
     string word;
-    if (turn < 5 && guess.length() != turn + 3 || turn > 4 && guess.length() != 7) // checks if valid length
+    if (guess.length() != key.length()) // checks if valid length
         return false;
     validWords.open("words.txt");
     if (validWords.is_open()) {
@@ -107,7 +107,7 @@ void playGame::updateColor() {
             colorArray[i] = 'x';
         }
     }
-    for (char c: colorArray) {} // indexes each color to avoid weird ascii outputs
+    //for (char c: colorArray) {} // indexes each color to avoid weird ascii outputs
     for (char c: colorArray) { // fills color vector
         color.push_back(c);
     }
@@ -116,20 +116,12 @@ void playGame::updateColor() {
 // takes in a new guess
 void playGame::updateGuess() {
     cin >> guess;
+    if (guess == "igiveup")
+        cout << "The correct word is: " << key << '\n';
     while(!isValid()) {
         cout << "Please enter a valid word\n";
         cin >> guess;
     }
-}
-
-// executes a turn of Addle, updates guess
-void playGame::playTurn() {
-    displayBlanks();
-    cout << key << '\n';
-    updateGuess();
-    updateColor();
-    displayColors();
-    updateTurn();
 }
 
 // gets turn number
@@ -174,4 +166,13 @@ void playGame::displayWords() const {
     for (const string& word: keyList) {
         cout << word << '\n';
     }
+}
+
+// executes a turn of Addle, updates guess
+void playGame::playTurn() {
+    displayBlanks();
+    updateGuess();
+    updateColor();
+    displayColors();
+    updateTurn();
 }
