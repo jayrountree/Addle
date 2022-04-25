@@ -36,10 +36,12 @@ playGame::playGame(const string& inputFile) {
 bool playGame::isValid() const{
     ifstream validWords;
     string word;
+    if (turn < 5 && guess.length() != turn + 3 || turn > 4 && guess.length() != 7) // checks if valid length
+        return false;
     validWords.open("words.txt");
     if (validWords.is_open()) {
         while (getline(validWords,word)) {
-            if (guess == word) {
+            if (guess == word) { // checks if valid english word
                 validWords.close();
                 return true;
             }
@@ -123,6 +125,7 @@ void playGame::updateGuess() {
 // executes a turn of Addle, updates guess
 void playGame::playTurn() {
     displayBlanks();
+    cout << key << '\n';
     updateGuess();
     updateColor();
     displayColors();

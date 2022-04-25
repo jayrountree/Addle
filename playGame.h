@@ -13,8 +13,8 @@
 class playGame {
     std::vector<std::string> keyList;
     std::vector<char> color;
-    std::string key;
     std::string guess;
+    std::string key;
     int newLetter;
     int turn;
 
