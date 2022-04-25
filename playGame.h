@@ -6,8 +6,8 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-#include <random>
 #include <sstream>
+#include <random>
 #include <algorithm>
 
 class playGame {

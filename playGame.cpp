@@ -91,7 +91,7 @@ void playGame::updateColor() {
                 break;
             }
         }
-        if (!flag) {
+        if (!flag) { // checks incorrect guess
             colorArray[i] = 'x';
         }
     }
@@ -101,7 +101,7 @@ void playGame::updateColor() {
         }
     }
     for (int i = 0; i < guess.length(); i++) {
-        if (colorArray[i] == 0) { // checks incorrect guess
+        if (colorArray[i] == 0) { // catches missed incorrect guesses
             colorArray[i] = 'x';
         }
     }
