@@ -11,7 +11,7 @@ playGame::playGame(const string& inputFile, const int& gm) {
     int listLoc = dist(mt);
     string line, word;
     ifstream keys;
-    keys.open("keys.txt");
+    keys.open("test.txt");
     if (keys.is_open()) {
         for (int i = 0; i < listLoc; i++) {
             getline(keys,line);
@@ -96,12 +96,7 @@ void playGame::updateTurn() {
             }
         }
         if (flag) { // sets newLetter to the last letter
-            if (gameMode == 1)
-                newLetter = turn + 2;
-            else if (gameMode == 2)
-                newLetter = turn + 1;
-            else
-                newLetter = turn;
+            newLetter = -1;
         }
     }
 }
@@ -171,12 +166,16 @@ void playGame::displayBlanks() const {
     }
     cout << '\n';
     if (addTurn()) { // displays new letter insertion
-        for (int i = 0; i < key.length()+1; i++) {
+        for (int i = 0; i < key.length()-1; i++) {
             if (i == newLetter)
                 cout << "^ ";
             else
                 cout << "  ";
         }
+        if (newLetter == -1)
+            cout << "^";
+        else
+            cout << " ";
         cout << '\n';
     }
 }
@@ -198,7 +197,7 @@ void playGame::displayWords() const {
     }
 }
 
-// executes a turn of Addle, updates guess
+// executes a turn of Addle
 void playGame::playTurn() {
     displayBlanks();
     updateGuess();
