@@ -11,7 +11,7 @@ playGame::playGame(const string& inputFile, const int& gm) {
     int listLoc = dist(mt);
     string line, word;
     ifstream keys;
-    keys.open("test.txt");
+    keys.open("keys.txt");
     if (keys.is_open()) {
         for (int i = 0; i < listLoc; i++) {
             getline(keys,line);
