@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -13,6 +14,7 @@
 class playGame {
     std::vector<std::string> keyList;
     std::vector<char> color;
+    std::map<char, int> letters;
     std::string guess;
     std::string key;
     int newLetter;
@@ -27,6 +29,7 @@ class playGame {
         void updateTurn();
         void updateColor();
         void updateGuess();
+        void updateLetters();
         int getTurn() const;
         void displayBlanks() const;
         void displayColors() const;

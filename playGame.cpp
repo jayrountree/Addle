@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// constructor for playGame class: sets keyList, color, turn, newLetter, key, and gameMode
+// constructor for playGame class: sets keyList, letters, color, turn, newLetter, key, and gameMode
 playGame::playGame(const string& inputFile, const int& gm) {
     // randomly select line from file
     random_device rd;
@@ -23,6 +23,15 @@ playGame::playGame(const string& inputFile, const int& gm) {
     while (getline(ss, word, ' ')){
         keyList.push_back(word);
     }
+    // initialize map of all letters
+    letters = {
+            {'a', 0}, {'b', 0}, {'c', 0}, {'d', 0}, {'e', 0}, {'f', 0},
+            {'g', 0}, {'h', 0}, {'i', 0}, {'j', 0}, {'k', 0}, {'l', 0},
+            {'m', 0}, {'n', 0}, {'o', 0}, {'p', 0}, {'q', 0}, {'r', 0},
+            {'s', 0}, {'t', 0}, {'u', 0}, {'v', 0}, {'w', 0}, {'x', 0},
+            {'y', 0}, {'z', 0}
+    };
+
     // initialize color, turn, newLetter, key, and gameMode
     color.push_back('x');
     color.push_back('x');
@@ -154,6 +163,19 @@ void playGame::updateGuess() {
     }
 }
 
+// updates for each correctly guessed letter
+void playGame::updateLetters() {
+    map<char,int>::iterator it;
+    for (int i = 0; i < color.size(); i++) {
+        if (color.at(i) == 'g' || color.at(i) == 'y') {
+            it = letters.find(guess[i]);
+            if (it != letters.end()) {
+                it->second++;
+            }
+        }
+    }
+}
+
 // gets turn number
 int playGame::getTurn() const {
     return turn;
@@ -161,6 +183,15 @@ int playGame::getTurn() const {
 
 // displays the number of characters to guess and where new letter was inserted
 void playGame::displayBlanks() const {
+    bool flag = false;
+    for (auto const& x : letters) {
+        if (x.second > 0) {
+            cout << x.first;
+            flag = true;
+        }
+    }
+    if (flag)
+        cout << '\n';
     for (int i = 0; i < key.length(); i++){ // displays blanks
         cout << "_ ";
     }
@@ -202,6 +233,7 @@ void playGame::playTurn() {
     displayBlanks();
     updateGuess();
     updateColor();
+    updateLetters();
     displayColors();
     updateTurn();
 }
