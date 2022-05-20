@@ -3,7 +3,7 @@
 using namespace std;
 
 // constructor for playGame class: sets keyList, letters, color, turn, newLetter, key, and gameMode
-playGame::playGame(const string& inputFile, const int& gm) {
+playGame::playGame(const string& inputFile, const int& gm, const int& bm) {
     // randomly select line from file
     random_device rd;
     mt19937 mt(rd());
@@ -85,10 +85,27 @@ bool playGame::hasWon() const {
     return all_of(color.begin(), color.end(), [](char letter){ return letter == 'g'; }); // checks if all characters in color are 'g'
 }
 
+// finds the index of a new letter
+
+int playGame::findNewLetter() {
+    string oldKey = key;
+    bool flag = true;
+    for (int i = 0; i < oldKey.length(); i++) { // finds the index of the new letter
+        if (oldKey[i] != key[i]) {
+            flag = false;
+            newLetter = i;
+            break;
+        }
+    }
+    if (flag) { // sets newLetter to the last letter
+        newLetter = -1;
+    }
+    return newLetter;
+}
+
 // updates turn, newLetter, and key by indexing keyList by turn
 void playGame::updateTurn() {
     turn++;
-    string oldKey = key;
     if (addTurn()) {
         if (gameMode == 1)
             key = keyList.at(turn);
@@ -96,17 +113,7 @@ void playGame::updateTurn() {
             key = keyList.at(turn/2);
         else
             key = keyList.at(turn/3);
-        bool flag = true;
-        for (int i = 0; i < oldKey.length(); i++) { // finds the index of the new letter
-            if (oldKey[i] != key[i]) {
-                flag = false;
-                newLetter = i;
-                break;
-            }
-        }
-        if (flag) { // sets newLetter to the last letter
-            newLetter = -1;
-        }
+        findNewLetter();
     }
 }
 
@@ -181,6 +188,10 @@ int playGame::getTurn() const {
     return turn;
 }
 
+vector<char> playGame::getColor() const {
+    return color;
+}
+
 // displays the number of characters to guess and where new letter was inserted
 void playGame::displayBlanks() const {
     bool flag = false;
@@ -232,6 +243,17 @@ void playGame::displayWords() const {
 void playGame::playTurn() {
     displayBlanks();
     updateGuess();
+    updateColor();
+    updateLetters();
+    displayColors();
+    updateTurn();
+}
+
+// executes a turn of Addle with a bot
+void playGame::playBotTurn(const string& g) {
+    displayBlanks();
+    guess = g;
+    cout << guess << '\n';
     updateColor();
     updateLetters();
     displayColors();
