@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addle - Wordle with Growing Words</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ADDLE</h1>
+            <p class="subtitle">Guess the word as letters are added!</p>
+        </header>
+
+        <div class="game-board" id="gameBoard"></div>
+
+        <div class="message" id="message"></div>
+
+        <div class="keyboard" id="keyboard"></div>
+
+        <div class="button-group">
+            <button id="giveUpBtn" class="secondary-btn">Give Up</button>
+            <button id="newGameBtn" style="display: none;">New Game</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

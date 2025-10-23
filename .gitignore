@@ -1,0 +1,6 @@
+*.o
+addle
+*.out
+.DS_Store
+.ccls-cache
+.vscode
