@@ -207,14 +207,15 @@ button:active {
     gap: 10px;
     margin-top: 10px;
     width: 100%;
+    padding-top: 50px;
 }
 
 .secondary-btn {
-    background-color: #818384;
+    background-color: #f89191;
 }
 
 .secondary-btn:hover {
-    background-color: #565758;
+    background-color: #fcbcbc;
 }
 
 #newGameBtn {
