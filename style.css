@@ -18,6 +18,7 @@ body {
 .container {
     max-width: 500px;
     width: 100%;
+    padding: 0 10px;
 }
 
 header {
@@ -28,13 +29,13 @@ header {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: clamp(28px, 5vw, 36px);
     font-weight: 700;
     letter-spacing: 0.2em;
 }
 
 .subtitle {
-    font-size: 14px;
+    font-size: clamp(12px, 2.5vw, 14px);
     color: #818384;
     margin-top: 10px;
 }
@@ -53,13 +54,13 @@ h1 {
 }
 
 .tile {
-    width: 62px;
-    height: 62px;
+    width: calc(min(62px, 20vw));
+    height: calc(min(62px, 20vw));
     border: 2px solid #3a3a3c;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 32px;
+    font-size: calc(min(32px, 10vw));
     font-weight: bold;
     text-transform: uppercase;
     color: #ffffff;
@@ -97,7 +98,7 @@ h1 {
 .message {
     text-align: center;
     min-height: 30px;
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 16px);
     margin-bottom: 20px;
     font-weight: 600;
 }
@@ -120,17 +121,23 @@ h1 {
     gap: 6px;
     margin-bottom: 20px;
     align-items: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 0 5px;
 }
 
 .keyboard-row {
     display: flex;
     gap: 6px;
+    width: 100%;
+    justify-content: center;
 }
 
 .key {
-    min-width: 43px;
-    height: 58px;
-    padding: 0 6px;
+    flex: 1;
+    min-width: 20px;
+    height: clamp(35px, 8vw, 58px);
+    padding: 0 3px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,7 +145,7 @@ h1 {
     color: #ffffff;
     border: none;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: clamp(11px, 2.5vw, 13px);
     font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
@@ -154,8 +161,8 @@ h1 {
 }
 
 .key.large {
-    min-width: 65px;
-    font-size: 12px;
+    flex: 1.5;
+    font-size: clamp(11px, 2.5vw, 12px);
 }
 
 .key.correct {
@@ -175,8 +182,8 @@ h1 {
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 16px;
+    padding: clamp(12px, 3vw, 15px) clamp(20px, 5vw, 30px);
+    font-size: clamp(14px, 2.5vw, 16px);
     font-weight: 700;
     background-color: #538d4e;
     color: #ffffff;
@@ -199,6 +206,7 @@ button:active {
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
+    width: 100%;
 }
 
 .secondary-btn {
@@ -216,4 +224,28 @@ button:active {
 
 #newGameBtn:hover {
     background-color: #6aaa64;
+}
+
+/* Media queries for extreme cases */
+@media (max-height: 600px) {
+    .tile {
+        width: calc(min(50px, 15vw));
+        height: calc(min(50px, 15vw));
+        font-size: calc(min(25px, 8vw));
+    }
+    
+    .keyboard {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 280px) {
+    .container {
+        padding: 0 5px;
+    }
+    
+    .key {
+        min-width: 15px;
+        padding: 0 2px;
+    }
 }
