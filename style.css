@@ -1,252 +1,227 @@
+/* ==== Global reset ======================================================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* ==== Layout / Typography =============================================== */
 body {
-    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-    background-color: #121213;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: #121213;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
 .container {
-    max-width: 500px;
-    width: 100%;
-    padding: 0 10px;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 10px;
 }
 
+/* ==== Header ============================================================= */
 header {
-    text-align: center;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #3a3a3c;
-    padding-bottom: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #3a3a3c;
 }
 
 h1 {
-    font-size: clamp(28px, 5vw, 36px);
-    font-weight: 700;
-    letter-spacing: 0.2em;
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  letter-spacing: 0.2em;
 }
 
 .subtitle {
-    font-size: clamp(12px, 2.5vw, 14px);
-    color: #818384;
-    margin-top: 10px;
+  margin-top: 10px;
+  font-size: clamp(12px, 2.5vw, 14px);
+  color: #818384;
 }
 
+/* ==== Game board ========================================================= */
 .game-board {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
 }
 
 .row {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
 }
 
 .tile {
-    width: calc(min(62px, 20vw));
-    height: calc(min(62px, 20vw));
-    border: 2px solid #3a3a3c;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(min(32px, 10vw));
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #ffffff;
+  width: calc(min(62px, 20vw));
+  height: calc(min(62px, 20vw));
+  border: 2px solid #3a3a3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(min(32px, 10vw));
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
 }
 
-.tile.filled {
-    border-color: #565758;
-}
-
-.tile.correct {
-    background-color: #538d4e;
-    border-color: #538d4e;
-}
-
-.tile.present {
-    background-color: #b59f3b;
-    border-color: #b59f3b;
-}
-
-.tile.absent {
-    background-color: #3a3a3c;
-    border-color: #3a3a3c;
-}
+.tile.filled { border-color: #565758; }
+.tile.correct { background: #538d4e; border-color: #538d4e; }
+.tile.present { background: #b59f3b; border-color: #b59f3b; }
+.tile.absent  { background: #3a3a3c; border-color: #3a3a3c; }
 
 .tile.new-letter {
-    border-color: #818384;
-    animation: pulse 0.5s ease-in-out;
+  border-color: #818384;
+  animation: pulse 0.5s ease-in-out;
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.1); }
 }
 
+/* ==== Messages =========================================================== */
 .message {
-    text-align: center;
-    min-height: 30px;
-    font-size: clamp(14px, 2.5vw, 16px);
-    margin-bottom: 20px;
-    font-weight: 600;
+  text-align: center;
+  min-height: 30px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: clamp(14px, 2.5vw, 16px);
 }
+.message.error   { color: #ff6b6b; }
+.message.success { color: #538d4e; }
+.message.info    { color: #818384; }
 
-.message.error {
-    color: #ff6b6b;
-}
-
-.message.success {
-    color: #538d4e;
-}
-
-.message.info {
-    color: #818384;
-}
-
+/* ==== Keyboard =========================================================== */
+/*
+  The keyboard uses a 10-column sizing model:
+  - Top row has 10 equal-width letter keys.
+  - Bottom row uses 7 letter keys (1 unit each) + Enter (1.5 units) + Delete (1.5 units)
+    so it fills exactly the same total width as the top row.
+*/
 .keyboard {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 20px;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-    padding: 0 5px;
+  /* Sizing variables (change max width to match container if needed) */
+  --kb-max-width: 500px;
+  --kb-gap: 6px;
+  --kb-columns: 10;
+
+  /* Row width equals container width, capped at max */
+  width: 100%;
+  max-width: var(--kb-max-width);
+  margin: 0 auto 20px auto;
+  padding: 0 5px;
+
+  /* Compute a consistent square letter key width from 10 columns */
+  --row-width: min(100%, var(--kb-max-width));
+  --key-size: calc((var(--row-width) - (var(--kb-gap) * (var(--kb-columns) - 1))) / var(--kb-columns));
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--kb-gap);
+  align-items: center;
 }
 
+/* Each row is a centered flex strip that honors the computed key widths */
 .keyboard-row {
-    display: flex;
-    gap: 6px;
-    width: 100%;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: var(--kb-gap);
 }
 
+/* Base key: fixed width equal to one "unit"; height keeps a nice aspect on phones */
 .key {
-    flex: 1;
-    min-width: 20px;
-    height: clamp(35px, 8vw, 58px);
-    padding: 0 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #818384;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    font-size: clamp(11px, 2.5vw, 13px);
-    font-weight: 700;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.1s;
+  flex: 0 0 var(--key-size);          /* exact width for all letter keys */
+  height: clamp(38px, 8vw, 58px);     /* responsive height */
+  padding: 0 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #818384;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: clamp(11px, 2.5vw, 13px);
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.08s ease, background-color 0.12s ease;
 }
 
-.key:hover {
-    background-color: #9a9a9c;
+.key:hover  { background: #9a9a9c; }
+.key:active { transform: scale(0.96); }
+
+/* WIDE keys (Enter, Delete/Backspace) occupy 1.5 "units" */
+.key.large,
+.key[data-key="Enter"],
+.key[data-key="ENTER"],
+.key[data-key="↵"],
+.key[data-key="Backspace"],
+.key[data-key="⌫"],
+.key.backspace,
+.key.enter {
+  flex: 0 0 calc(var(--key-size) * 1.5);
+  font-size: clamp(11px, 2.5vw, 12px);
 }
 
-.key:active {
-    transform: scale(0.95);
-}
+/* Key state colors to match tiles */
+.key.correct { background: #538d4e; }
+.key.correct:hover { background: #6aaa64; }
 
-.key.large {
-    flex: 1.5;
-    font-size: clamp(11px, 2.5vw, 12px);
-}
+.key.present { background: #b59f3b; }
+.key.present:hover { background: #c9b458; }
 
-.key.correct {
-    background-color: #538d4e;
-}
+.key.absent { background: #3a3a3c; }
+.key.absent:hover { background: #525355; }
 
-.key.correct:hover {
-    background-color: #6aaa64;
-}
-
-.key.present {
-    background-color: #b59f3b;
-}
-
-.key.present:hover {
-    background-color: #c9b458;
+/* ==== Buttons ============================================================ */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+  padding-top: 50px;
 }
 
 button {
-    padding: clamp(12px, 3vw, 15px) clamp(20px, 5vw, 30px);
-    font-size: clamp(14px, 2.5vw, 16px);
-    font-weight: 700;
-    background-color: #538d4e;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 100%;
+  padding: clamp(12px, 3vw, 15px) clamp(20px, 5vw, 30px);
+  font-size: clamp(14px, 2.5vw, 16px);
+  font-weight: 700;
+  background: #538d4e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.08s ease;
 }
+button:hover  { background: #6aaa64; }
+button:active { transform: scale(0.98); }
 
-button:hover {
-    background-color: #6aaa64;
-}
+.secondary-btn       { background: #f89191; }
+.secondary-btn:hover { background: #fcbcbc; }
 
-button:active {
-    transform: scale(0.98);
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-    width: 100%;
-    padding-top: 50px;
-}
-
-.secondary-btn {
-    background-color: #f89191;
-}
-
-.secondary-btn:hover {
-    background-color: #fcbcbc;
-}
-
-#newGameBtn {
-    width: 100%;
-    background-color: #538d4e;
-}
-
-#newGameBtn:hover {
-    background-color: #6aaa64;
-}
-
-/* Media queries for extreme cases */
+/* ==== Extreme small screens / short viewports =========================== */
 @media (max-height: 600px) {
-    .tile {
-        width: calc(min(50px, 15vw));
-        height: calc(min(50px, 15vw));
-        font-size: calc(min(25px, 8vw));
-    }
-    
-    .keyboard {
-        margin-bottom: 10px;
-    }
+  .tile {
+    width: calc(min(50px, 15vw));
+    height: calc(min(50px, 15vw));
+    font-size: calc(min(25px, 8vw));
+  }
 }
 
-@media (max-width: 280px) {
-    .container {
-        padding: 0 5px;
-    }
-    
-    .key {
-        min-width: 15px;
-        padding: 0 2px;
-    }
+@media (max-width: 320px) {
+  /* Slightly shrink the unit so the 10-col model still fits cleanly */
+  .keyboard {
+    --kb-gap: 5px;
+  }
+  .key {
+    padding: 0 2px;
+  }
 }
